@@ -34,7 +34,7 @@ let currentWeather = {
     weatherPicture: document.querySelector("#weatherIcon"),
     temperature: document.querySelector("#currentTemperature"),
     wind: document.querySelector("#currentWind"),
-    humidity: document.querySelector("currentHumidity"),
+    humidity: document.querySelector("#currentHumidity"),
     uvIndex: document.querySelector("#currentUVIndex"),
 }
 
@@ -74,7 +74,7 @@ function onecallApi(req) {
         currentWeather.temperature.textContent = data.current.temp;
         currentWeather.wind.textContent = data.current.wind_speed;
         // Uncaught Cannot Set Property of Null (Setting TextContent)
-        //currentWeather.humidity.textContent = data.current.humidity;
+        currentWeather.humidity.textContent = data.current.humidity;
         currentWeather.uvIndex.textContent = data.current.uvi;
         if(data.current.uvi > 10){
             currentWeather.uvIndex.setAttribute("style","color: #be0000");
@@ -137,7 +137,7 @@ function parseStorage() {
             weather = localVariable;
             displayHistory();
             currentWeather.city = history[0].textContent;
-            callApi(`https://api.openweathermap.org/data/2.5/onecall?lat=${history[0].dataset.latitude}&lon=${history[0].dataset.longitude}&exclude=minutely,hourly&limit=6&units=imperial&appid=` + apiKey);
+            onecallApi(`https://api.openweathermap.org/data/2.5/onecall?lat=${history[0].dataset.latitude}&lon=${history[0].dataset.longitude}&exclude=minutely,hourly&limit=6&units=imperial&appid=` + apiKey);
         }
     }
 }
