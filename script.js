@@ -89,6 +89,10 @@ function onecallApi(req) {
             currentWeather.uvIndex.setAttribute("style","color: #ff9928");
         } else if (data.current.uvi > 4) {
             currentWeather.uvIndex.setAttribute("style","color: #ff9928"); 
+        } else if (data.current.uvi > 3) {
+            currentWeather.uvIndex.setAttribute("style","color: #ff9928"); 
+        } else if (data.current.uvi > 2) {
+            currentWeather.uvIndex.setAttribute("style","color: #33cc00");
         } else if (data.current.uvi >= 1){
             currentWeather.uvIndex.setAttribute("style","color: #33cc00");
         } else{
