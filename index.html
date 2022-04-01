@@ -40,7 +40,7 @@
         <!-- Div to hold name of city, date, temp, wind, hum, UV index  -->
         <div class="border p-3">
             <!-- Holds name of city -->
-            <h1 id="currentCityWeather"><strong>Just putting a name to see it on the page</strong></h1>
+            <h1 id="currentCityWeather"><strong>Just putting a name to see it on the page</strong></h1><img id="weatherIcon" src="" alt="">
             <p id="currentTemperature">Temp: </p>
             <p id="currentWind">Wind: </p>
             <p id="currentHumidity">Humidity: </p>
@@ -53,63 +53,63 @@
         <!-- Div to hold the 5 day forecast weather cards -->
         <div class="d-flex justify-content-between">
             <!-- Day 1 Weather Care -->
-            <figure>
+            <figure class="weatherCard">
                 <!-- this is where the date will be held -->
-                <p>Placeholder for date</p>
+                <p id="date-0">Placeholder for date</p>
                 <!-- This is where the image will go -->
-                <img alt=""/>
+                <img id="img-0" alt=""/>
                 <!-- Properties for the Temp, Wind, Hum -->
-                <p>Temp: </p>
-                <p>Wind: </p>
-                <p>Humidity: </p>
+                <p>Temp: <span id="temp-0"> </span> </p>
+                <p>Wind: <span id="windspeed-0" ></span> </p>
+                <p>Humidity: <span id="hum-0"> </span></p>
             </figure>
 
             <!-- Day 2 Weather Card -->
             <figure>
                 <!-- this is where the date will be held -->
-                <p>Placeholder for date</p>
+                <p id="date-1">Placeholder for date</p>
                 <!-- This is where the image will go -->
-                <img alt=""/>
+                <img id="img-1" alt=""/>
                 <!-- Properties for the Temp, Wind, Hum -->
-                <p>Temp: </p>
-                <p>Wind: </p>
-                <p>Humidity: </p>
+                <p>Temp: <span id="temp-1"></span> </p>
+                <p>Wind: <span id="windspeed-1"> </span></p>
+                <p>Humidity: <span id="hum-1"> </span></p>
             </figure>
 
              <!-- Day 3 Weather Card -->
              <figure>
                 <!-- this is where the date will be held -->
-                <p>Placeholder for date</p>
+                <p id="date-2">Placeholder for date</p>
                 <!-- This is where the image will go -->
-                <img alt=""/>
+                <img id="img-2" alt=""/>
                 <!-- Properties for the Temp, Wind, Hum -->
-                <p>Temp: </p>
-                <p>Wind: </p>
-                <p>Humidity: </p>
+                <p>Temp: <span id="temp-2"> </span></p>
+                <p>Wind: <span id="windspeed-2"> </span></p>
+                <p>Humidity: <span id="hum-2"> </span></p>
             </figure>
 
              <!-- Day 4 Weather Card -->
              <figure>
                 <!-- this is where the date will be held -->
-                <p>Placeholder for date</p>
+                <p id="date-3">Placeholder for date</p>
                 <!-- This is where the image will go -->
-                <img alt=""/>
+                <img id="img-3" alt=""/>
                 <!-- Properties for the Temp, Wind, Hum -->
-                <p>Temp: </p>
-                <p>Wind: </p>
-                <p>Humidity: </p>
+                <p>Temp: <span id="temp-3"> </span></p>
+                <p>Wind: <span id="windspeed-3"> </span></p>
+                <p>Humidity: <span id="hum-3"> </span></p>
             </figure>
 
              <!-- Day 5 Weather Card -->
              <figure>
                 <!-- this is where the date will be held -->
-                <p>Placeholder for date</p>
+                <p id="date-4">Placeholder for date</p>
                 <!-- This is where the image will go -->
-                <img alt=""/>
+                <img id="img-4" alt=""/>
                 <!-- Properties for the Temp, Wind, Hum -->
-                <p>Temp: </p>
-                <p>Wind: </p>
-                <p>Humidity: </p>
+                <p>Temp: <span id="temp-4"> </span></p>
+                <p>Wind: <span id="windspeed-4"> </span></p>
+                <p>Humidity: <span id="hum-4"> </span></p>
             </figure>
         </div>
     </main>
@@ -122,6 +122,7 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous">
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <script src="script.js"></script>
 
 </body>
