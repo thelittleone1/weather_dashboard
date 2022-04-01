@@ -1,12 +1,12 @@
 let apiKey = "f2eaafe950454f45ba680cad4e9a2716";
 let url1 = "https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=" + apiKey;
 
-let currentCityWeaterEl = document.querySelectorAll("#currentCityWeater");
+//let currentCityWeatherEl = document.querySelectorAll("#currentCityWeather");
 // let weatherImgageEl = document.querySelectorAll("weatherImage");
-let currentTemperatureEl = document.querySelectorAll("#currentTemperature");
-let currentWindEl = document.querySelectorAll("#currentWind");
-let currentHumidityEl = document.querySelectorAll("currentHumidity");
-let currentUVIndexEl = document.querySelectorAll("#currentUVIndex");
+//let currentTemperatureEl = document.querySelectorAll("#currentTemperature");
+//let currentWindEl = document.querySelectorAll("#currentWind");
+//let currentHumidityEl = document.querySelectorAll("currentHumidity");
+//let currentUVIndexEl = document.querySelectorAll("#currentUVIndex");
 // Button to submit
 let searchBtn = document.querySelector("#searchBtn");
 // The input to search for the city
@@ -30,11 +30,11 @@ let currentWeather = {
     city: "",
     lat: 0,
     lon: 0,
-    currentCityTitle: currentCityWeaterEl,
-    temperature: currentTemperatureEl,
-    wind: currentWindEl,
-    humidity: currentHumidityEl,
-    uvIndex: currentUVIndexEl,
+    currentCityTitle: document.querySelectorAll("#currentCityWeather"),
+    temperature: document.querySelectorAll("#currentTemperature"),
+    wind: document.querySelectorAll("#currentWind"),
+    humidity: document.querySelectorAll("currentHumidity"),
+    uvIndex: document.querySelectorAll("#currentUVIndex"),
 }
 
 
@@ -53,7 +53,7 @@ function currentCityWeather(request) {
             currentWeather.city = data.name;
             currentWeather.lat = latitude;
             currentWeather.lon = longitude;
-            let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
+            let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=` + apiKey;
             callApi(callWeatherAPI); 
         } else {
             alert("City Not found")
@@ -64,28 +64,25 @@ function currentCityWeather(request) {
 // Called for debugging purpopses
 //currentCityWeather(url1);
 
+// Calls API for current weather 
 function callApi(req) {
     fetch(req)
     .then(function(resp) {
     return resp.json();
 })
     .then(function(data) {
-        currentWeather.currentCityWeaterEl.textContent = `${currentWeather.city}`;
+        currentWeather.currentCityTitle.textContent = `${currentWeather.city} ${moment.unix(data.current.dt).format("MM/DD/YYYY")}`;
         currentWeather.temperature.textContent = data.current.temperature;
         currentWeather.wind.textContent = data.current.wind_speed;
         currentWeather.humidity.textContent = data.current.humidity;
         currentWeather.uvIndex.textContent = data.current.uvi;
         // Edit these later
         if(data.current.uvi > 10){
-            currentWeather.uvIndex.setAttribute("style","color: #be00be");
-        } else if(data.current.uvi > 7){
-            currentWeather.uvIndex.setAttribute("style","color: #ff0000");
+            currentWeather.uvIndex.setAttribute("style","color: #be0000");
         } else if(data.current.uvi > 5){
             currentWeather.uvIndex.setAttribute("style","color: #ff9928");
-        } else if(data.current.uvi > 2){
-            currentWeather.uvIndex.setAttribute("style","color: #ffff00");
         } else if(data.current.uvi >= 1){
-            currentWeather.uvIndex.setAttribute("style","color: #99cc00");
+            currentWeather.uvIndex.setAttribute("style","color: #33cc00");
         } else{
             currentWeather.uvIndex.setAttribute("style","color: #ffffff");
         }
@@ -103,7 +100,7 @@ function displayHistory() {
 // Takes info in history array and adds it to local storage
 function updateHistory(cityName) {
     if(!checkArray(cityName) && cityName !== "") {
-        let storedCityName = generateButton(cityName);
+        let storedCityName = generateButton(cityName, currentWeather.lat, currentWeather.lon);
         weather.city.unshift(cityName);
         weather.lat.unshift(currentWeather.lat);
         weather.lon.unshift(currentWeather.lon);
@@ -121,13 +118,13 @@ function parseStorage() {
     let localVariable = JSON.parse(localStorage.getItem("savedCities"));
     if(localVariable != null) {
         for( var i = 0; i < localVariable.city.length; i++) {
-            history.pushS(displayCityNames(localVariable.city[i]));
+            history.push(displayCityNames(localVariable.city[i],localVariable.lat[i],localVariable.lon[i]));
         }
         if(history.length > 0) {
             weather = localVariable;
             displayHistory();
             currentWeather.city = history[0].textContent;
-            callApi(`https://api.openweathermap.org/data/2.5/weather?lat=${history[0].dataset.latitude}&lon=${history[0].dataset.longitude}&appid=${apiKey}`)
+            callApi(`https://api.openweathermap.org/data/2.5/weather?lat=${history[0].dataset.latitude}&lon=${history[0].dataset.longitude}&appid=` + apiKey);
         }
     }
 }
@@ -141,7 +138,7 @@ function displayCityNames(name) {
     cityDisplay.setAttribute("data-longitude", longitude);
     cityDisplay.addEventListener("click", function(event) {
         event.preventDefault();
-        let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+        let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=` + apiKey;
         currentWeather.city = name;
         callApi(callWeatherAPI);
     });
@@ -159,31 +156,33 @@ function checkArray(city) {
     return cityCheck;
 }
 
-function formatName(cityFormat) {
-    if(cityFormat !== "" || cityFormat != null) {
-        //cityFormat = cityFormat.trim();
-        //if(cityFormat.includes(" ")) {
-          //  cityFormat = cityFormat.replaceAll(" ","+");
-        //}
-        //if(cityFormat.includes("-")) {
-          //  cityFormat = cityFormat.replaceAll("-","+");
-        //}
-    } else {
-        cityFormat = "-1";
-    }
-    return cityFormat;
-}
+// function formatName(cityFormat) {
+//     if(cityFormat !== "" || cityFormat != null) {
+//         //cityFormat = cityFormat.trim();
+//         //if(cityFormat.includes(" ")) {
+//           //  cityFormat = cityFormat.replaceAll(" ","+");
+//         //}
+//         //if(cityFormat.includes("-")) {
+//           //  cityFormat = cityFormat.replaceAll("-","+");
+//         //}
+//     } else {
+//         cityFormat = "-1";
+//     }
+//     return cityFormat;
+// }
 
 searchBtn.addEventListener("click", function(event) {
     event.preventDefault();
     let userInput = searchBar.value;
-    userInput = formatName(userInput);
-    if(userInput !== "-1") {
-        let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid={API key}`
-        currentCityWeather(callWeatherAPI);
-    } else {
-        alert("Please enter a valid name");
-    }
+    //userInput = formatName(userInput);
+    let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid={API key}`;
+    currentCityWeather(callWeatherAPI);
+    //if(userInput !== "-1") {
+    //     let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid={API key}`;
+    //     currentCityWeather(callWeatherAPI);
+    // } else {
+    //     alert("Please enter a valid name");
+    // }
 });
 
 parseStorage();
