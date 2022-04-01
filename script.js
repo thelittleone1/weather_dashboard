@@ -12,7 +12,7 @@ let searchBtn = document.querySelector("#searchBtn");
 // The input to search for the city
 let searchBar = document.querySelector("#searchBar");
 // Search history
-let searchedCities = document.querySelector("#searched-cities")
+let searchedCities = document.querySelector("#searched_cities")
 // Array to hold searched cities 
 let history = [];
 
@@ -153,7 +153,7 @@ function displayCityNames(name, latitude, longitude) {
         event.preventDefault();
         let callWeatherAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&limit=6&units=imperial&appid=` + apiKey;
         currentWeather.city = name;
-        callApi(callWeatherAPI);
+        onecallApi(callWeatherAPI);
     });
     return cityDisplay;
 }
