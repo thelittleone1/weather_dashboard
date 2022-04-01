@@ -73,14 +73,23 @@ function onecallApi(req) {
         currentWeather.currentCityTitle.textContent = `${currentWeather.city} ${moment().format("MMM Do YY")}`;
         currentWeather.temperature.textContent = data.current.temp;
         currentWeather.wind.textContent = data.current.wind_speed;
-        // Uncaught Cannot Set Property of Null (Setting TextContent)
         currentWeather.humidity.textContent = data.current.humidity;
         currentWeather.uvIndex.textContent = data.current.uvi;
         if(data.current.uvi > 10){
             currentWeather.uvIndex.setAttribute("style","color: #be0000");
-        } else if(data.current.uvi > 5){
+        } else if (data.current.uvi > 9) {
+            currentWeather.uvIndex.setAttribute("style","color: #be0000"); 
+        } else if (data.current.uvi > 8) {
+            currentWeather.uvIndex.setAttribute("style","color: #be0000");
+        } else if (data.current.uvi > 7) {
+            currentWeather.uvIndex.setAttribute("style","color: #be0000");
+        } else if (data.current.uvi > 6) {
+            currentWeather.uvIndex.setAttribute("style","color: #be0000"); 
+        } else if (data.current.uvi > 5) {
             currentWeather.uvIndex.setAttribute("style","color: #ff9928");
-        } else if(data.current.uvi >= 1){
+        } else if (data.current.uvi > 4) {
+            currentWeather.uvIndex.setAttribute("style","color: #ff9928"); 
+        } else if (data.current.uvi >= 1){
             currentWeather.uvIndex.setAttribute("style","color: #33cc00");
         } else{
             currentWeather.uvIndex.setAttribute("style","color: #ffffff");
