@@ -182,6 +182,7 @@ function checkArray(city) {
     return cityCheck;
 }
 
+// Formating City Name
 function formatName(cityFormat) {
     if(cityFormat !== "" || cityFormat != null) {
         cityFormat = cityFormat.trim();
@@ -197,6 +198,7 @@ function formatName(cityFormat) {
     return cityFormat;
 }
 
+// Event Listener for button click 
 searchBtn.addEventListener("click", function(event) {
     event.preventDefault();
     let userInput = searchBar.value;
@@ -204,7 +206,7 @@ searchBtn.addEventListener("click", function(event) {
     let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid=` + apiKey;
     currentCityWeather(callWeatherAPI);
     if(userInput !== "-1") {
-        let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid={API key}`;
+        let callWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid=` + apiKey;
         currentCityWeather(callWeatherAPI);
     } else {
         alert("Please enter a valid name");
